@@ -21,7 +21,8 @@ public class MainActivity extends Activity{
  void startTracking(){if(!fine()){ensureSetup();return;}Intent i=new Intent(this,TrackingService.class).setAction("START");if(Build.VERSION.SDK_INT>=26)startForegroundService(i);else startService(i);}
  void act(String a){startService(new Intent(this,TrackingService.class).setAction(a));}
  String state(){return getSharedPreferences("track",0).getString("state","{}");}
- class Bridge{@JavascriptInterface public void start(){startTracking();}@JavascriptInterface public void pause(){act("PAUSE");}@JavascriptInterface public void resume(){act("RESUME");}@JavascriptInterface public void stop(){act("STOP");}@JavascriptInterface public String state(){return MainActivity.this.state();}
+ class Bridge{
+  @JavascriptInterface public void start(){startTracking();}@JavascriptInterface public void pause(){act("PAUSE");}@JavascriptInterface public void resume(){act("RESUME");}@JavascriptInterface public void stop(){act("STOP");}@JavascriptInterface public String state(){return MainActivity.this.state();}
   @JavascriptInterface public boolean locationOk(){return fine();}@JavascriptInterface public boolean backgroundOk(){return background();}@JavascriptInterface public boolean gpsOk(){return gps();}@JavascriptInterface public boolean batteryOk(){return battery();}@JavascriptInterface public boolean notificationsOk(){return notif();}
   @JavascriptInterface public void fixLocation(){openLocationSettings();}@JavascriptInterface public void fixGps(){openGpsSettings();}@JavascriptInterface public void fixBattery(){requestBattery();}
  }
